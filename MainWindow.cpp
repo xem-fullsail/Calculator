@@ -7,6 +7,26 @@
 // The collection of events that this window will interact with
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
 	EVT_BUTTON(9000, OnButtonClicked)
+	EVT_BUTTON(9001, OnButtonClicked)
+	EVT_BUTTON(9002, OnButtonClicked)
+	EVT_BUTTON(9003, OnButtonClicked)
+	EVT_BUTTON(9004, OnButtonClicked)
+	EVT_BUTTON(9005, OnButtonClicked)
+	EVT_BUTTON(9006, OnButtonClicked)
+	EVT_BUTTON(9007, OnButtonClicked)
+	EVT_BUTTON(9008, OnButtonClicked)
+	EVT_BUTTON(9009, OnButtonClicked)
+	EVT_BUTTON(9010, OnButtonClicked)
+	EVT_BUTTON(9011, OnButtonClicked)
+	EVT_BUTTON(9012, OnButtonClicked)
+	EVT_BUTTON(9013, OnButtonClicked)
+	EVT_BUTTON(9014, OnButtonClicked)
+	EVT_BUTTON(9015, OnButtonClicked)
+	EVT_BUTTON(9016, OnButtonClicked)
+	EVT_BUTTON(9017, OnButtonClicked)
+	EVT_BUTTON(9018, OnButtonClicked)
+	EVT_BUTTON(9019, OnButtonClicked)
+	EVT_BUTTON(9020, OnButtonClicked)
 wxEND_EVENT_TABLE()
 
 // Constructor
@@ -37,7 +57,7 @@ MainWindow::MainWindow() : wxFrame(nullptr, wxID_ANY, "calculator.xem", wxPoint(
 	buttonBin = new wxButton(this, 9019, "BIN");
 	buttonHex = new wxButton(this, 9020, "HEX");
 
-	// Add the buttons to the grid
+	// Add the buttons to the grid, ensuring they expand to fill empty space when the window is resized
 	grid->Add(button0, wxGBPosition(7, 0), wxGBSpan(1, 2), wxALL|wxEXPAND);
 	grid->Add(button1, wxGBPosition(6, 0), wxGBSpan(1, 1), wxALL|wxEXPAND);
 	grid->Add(button2, wxGBPosition(6, 1), wxGBSpan(1, 1), wxALL|wxEXPAND);
@@ -60,13 +80,13 @@ MainWindow::MainWindow() : wxFrame(nullptr, wxID_ANY, "calculator.xem", wxPoint(
 	grid->Add(buttonBin, wxGBPosition(1, 0), wxGBSpan(1, 1), wxALL|wxEXPAND);
 	grid->Add(buttonHex, wxGBPosition(2, 0), wxGBSpan(1, 1), wxALL|wxEXPAND);
 
-	// Create the text controls
-	equation = new wxTextCtrl(this, 9100, "");
-	result = new wxTextCtrl(this, 9200, "");
+	// Create the text controls, ensuring they can not be edited by the user
+	equationCtrl = new wxTextCtrl(this, 9100, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY);
+	resultCtrl = new wxTextCtrl(this, 9200, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY);
 
-	// Add the text controls to the grid
-	grid->Add(equation, wxGBPosition(0, 1), wxGBSpan(1, 3), wxALL|wxEXPAND);
-	grid->Add(result, wxGBPosition(1, 1), wxGBSpan(2, 3), wxALL|wxEXPAND);
+	// Add the text controls to the grid, ensuring they expand to fill empty space when the window is resized
+	grid->Add(equationCtrl, wxGBPosition(0, 1), wxGBSpan(1, 3), wxALL|wxEXPAND);
+	grid->Add(resultCtrl, wxGBPosition(1, 1), wxGBSpan(2, 3), wxALL|wxEXPAND);
 
 	// Ensure the grid is resizable
 	grid->AddGrowableCol(0);
@@ -89,12 +109,29 @@ MainWindow::MainWindow() : wxFrame(nullptr, wxID_ANY, "calculator.xem", wxPoint(
 	//wxFont font(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 }
 
+// Destructor
 MainWindow::~MainWindow() {
 	//
 }
 
+// Executes logic when a button is clicked.
 void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
 	wxButton* button = (wxButton*)eventName.GetEventObject();
-	result->SetLabel(button->GetLabel());
+
+	std::string buttonLabel = (button->GetLabel()).ToStdString();
+	Input(buttonLabel);
+	equationCtrl->SetLabel(equation);
+
 	eventName.Skip();
+}
+
+// Appends the given data to the end of the equation.
+std::string MainWindow::Input(std::string data) {
+	equation += data;
+	return equation;
+}
+
+// Calculates the result of the current equation.
+int MainWindow::CalculateResult() {
+	return 0;
 }

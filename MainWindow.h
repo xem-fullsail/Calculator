@@ -2,6 +2,7 @@
 // Kevin Moniz
 
 #pragma once
+#include <string>
 #include "wx/wx.h"
 
 
@@ -11,12 +12,12 @@ class MainWindow : public wxFrame
 public:
 	MainWindow();										// Constructor
 	~MainWindow();										// Destructor
-	void OnButtonClicked(wxCommandEvent& eventName);	// Called when a button is clicked.
-	wxDECLARE_EVENT_TABLE();							// Creates an event table for this window.
 
 private:
-	wxTextCtrl* equation = nullptr;						// The text field to display the equation being input
-	wxTextCtrl* result = nullptr;						// The text field to display the equation's result
+	std::string equation = "";							// The current equation being input
+	std::string result = "0";							// The current result of the equation
+	wxTextCtrl* equationCtrl = nullptr;					// The text field to display the equation
+	wxTextCtrl* resultCtrl = nullptr;					// The text field to display the result
 	wxButton* button0 = nullptr;						// Button '0'
 	wxButton* button1 = nullptr;						// Button '1'
 	wxButton* button2 = nullptr;						// Button '2'
@@ -38,5 +39,11 @@ private:
 	wxButton* buttonDec = nullptr;						// Button 'Decimal'
 	wxButton* buttonBin = nullptr;						// Button 'Binary'
 	wxButton* buttonHex = nullptr;						// Button 'Hexadecimal'
+
+	void OnButtonClicked(wxCommandEvent& eventName);	// Executes logic when a button is clicked.
+	std::string Input(std::string data);				// Appends the given data to the end of the equation.
+	int CalculateResult();								// Calculates the result of the current equation.
+
+	wxDECLARE_EVENT_TABLE();							// Creates an event table for this window.
 
 };
