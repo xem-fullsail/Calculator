@@ -2,11 +2,14 @@
 // Kevin Moniz
 
 #include "App.h"
-#include "MainWindow.h"
 
 
 wxIMPLEMENT_APP(App);
 
+
+App::~App() {
+	//delete mainWindow;
+}
 
 bool App::OnInit() {
 	mainWindow = new MainWindow();

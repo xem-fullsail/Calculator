@@ -3,16 +3,16 @@
 
 #pragma once
 #include "wx/wx.h"
-
-class MainWindow;
+#include "MainWindow.h"
 
 class App : public wxApp
 {
 
 private:
-	MainWindow* mainWindow;
+	MainWindow* mainWindow = nullptr;
 
 public:
+	~App();
 	virtual bool OnInit();
 
 };

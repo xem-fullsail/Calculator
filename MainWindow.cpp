@@ -6,7 +6,7 @@
 
 // The collection of events that this window will interact with
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
-	//EVT_BUTTON(9000, OnButtonClicked)
+	EVT_BUTTON(9000, OnButtonClicked)
 wxEND_EVENT_TABLE()
 
 // Constructor
@@ -94,5 +94,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
+	wxButton* button = (wxButton*)eventName.GetEventObject();
+	result->SetLabel(button->GetLabel());
 	eventName.Skip();
 }
