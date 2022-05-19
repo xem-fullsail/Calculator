@@ -12,6 +12,7 @@ class MainWindow : public wxFrame
 {
 
 public:
+
 	MainWindow();
 	~MainWindow();
 	
@@ -19,6 +20,7 @@ public:
 	void OnButtonClicked(wxCommandEvent& eventName);
 
 private:
+
 	std::string equation = "";				// The current equation being input
 	std::string result = "0";				// The current result of the equation
 	wxTextCtrl* equationCtrl = nullptr;		// The text field to display the equation

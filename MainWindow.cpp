@@ -5,8 +5,8 @@
 
 
 // Constructor
-MainWindow::MainWindow() : wxFrame(nullptr, 9999, "calculator.xem", wxPoint(400, 400)) {
-	// Create the grid sizer
+MainWindow::MainWindow() : wxFrame(nullptr, wxID_ANY, "calculator.xem", wxPoint(400, 400)) {
+	// Create the grid sizer and button factory
 	grid = new wxGridBagSizer();
 	bfactory = new ButtonFactory();
 
@@ -32,6 +32,29 @@ MainWindow::MainWindow() : wxFrame(nullptr, 9999, "calculator.xem", wxPoint(400,
 	bfactory->CreateButton(this, 'D', "Dec");
 	bfactory->CreateButton(this, 'B', "Bin");
 	bfactory->CreateButton(this, 'H', "Hex");
+
+	// Bind the buttons to the click method
+	bfactory->GetButton('0')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('2')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('3')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('4')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('5')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('6')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('1')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('7')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('8')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('9')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('=')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('+')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('-')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('*')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('/')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('%')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('N')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('C')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('D')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('B')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('H')->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
 
 	// Add the buttons to the grid, ensuring they expand to fill empty space when the window is resized
 	grid->Add(bfactory->GetButton('0'), wxGBPosition(7, 0), wxGBSpan(1, 2), wxALL|wxEXPAND);
@@ -85,6 +108,30 @@ MainWindow::MainWindow() : wxFrame(nullptr, 9999, "calculator.xem", wxPoint(400,
 
 // Destructor
 MainWindow::~MainWindow() {
+	// Unbind the buttons from the click method
+	bfactory->GetButton('0')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('1')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('2')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('3')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('4')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('5')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('6')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('7')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('8')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('9')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('=')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('+')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('-')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('*')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('/')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('%')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('N')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('C')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('D')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('B')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+	bfactory->GetButton('H')->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, this);
+
+	// Release memory
 	delete equationCtrl;
 	delete resultCtrl;
 	delete bfactory;
@@ -93,7 +140,7 @@ MainWindow::~MainWindow() {
 // Executes logic when a button is clicked.
 void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
 	// Fetch the clicked button from the given event
-	wxButton* button = (wxButton*)eventName.GetEventObject();
+	wxButton* button = dynamic_cast<wxButton*>(eventName.GetEventObject());
 
 	// Append the face value of the button to the end of the equation
 	std::string buttonLabel = (button->GetLabel()).ToStdString();

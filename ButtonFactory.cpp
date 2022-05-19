@@ -12,9 +12,8 @@ ButtonFactory::ButtonFactory() {
 
 // Destructor
 ButtonFactory::~ButtonFactory() {
-	// Unbind each button from the event handler, then delete them
+	// Delete each button
 	for (auto itr = buttons.begin(); itr != buttons.end(); itr++) {
-		//itr->second->Unbind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, 9999);
 		delete itr->second;
 	}
 }
@@ -35,13 +34,9 @@ wxButton* ButtonFactory::CreateButton(wxWindow* parent, char index, std::string 
 	std::string _label = label;
 	if (_label.empty()) _label = index;
 
-	// Create the buttons and insert it into the unordered map
+	// Create the button and insert it into the unordered map
 	wxButton* button = new wxButton(parent, 9000 + index, _label);
 	buttons.insert(bpair(index, button));
-
-	// Bind the button to the click method on the MainWindow
-	//button->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked, parent->GetId());
-	button->Bind(wxEVT_BUTTON, &MainWindow::OnButtonClicked);
 
 	return button;
 }
