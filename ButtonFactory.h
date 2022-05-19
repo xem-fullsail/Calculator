@@ -1,4 +1,4 @@
-// Lab 1.5 - Calculator
+// Calculator
 // Kevin Moniz
 
 #pragma once
