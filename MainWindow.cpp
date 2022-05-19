@@ -2,6 +2,9 @@
 // Kevin Moniz
 
 #include "MainWindow.h"
+#include "CalculatorProcessor.h"
+
+#define processor = CalculatorProcessor::Instance();
 
 
 // Constructor
@@ -142,9 +145,21 @@ void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
 	// Fetch the clicked button from the given event
 	wxButton* button = dynamic_cast<wxButton*>(eventName.GetEventObject());
 
-	// Append the face value of the button to the end of the equation
+	// Determine how to proceed based on the button label
 	std::string buttonLabel = (button->GetLabel()).ToStdString();
-	Append(buttonLabel);
+	switch (buttonLabel[0]) {
+		case '=': {
+			// Calculate and display the result of the equation
+			int result = CalculatorProcessor::Instance()->Process(equation);
+			resultCtrl->SetLabel(std::to_string(result));
+			break;
+		}
+		default: {
+			// Append the face value of the button to the end of the equation
+			Append(buttonLabel);
+			break;
+		}
+	}
 
 	// The event has been handled: end it
 	eventName.Skip();

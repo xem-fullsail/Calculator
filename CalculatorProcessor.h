@@ -28,6 +28,9 @@ public:
 	void operator=(const CalculatorProcessor&) = delete;
 
 	// Returns the singleton instance of the calculator processor.
-	static CalculatorProcessor* GetInstance();
+	static CalculatorProcessor* Instance();
+
+	// Process the given equation and return the result.
+	static int Process(std::string equation);
 
 };

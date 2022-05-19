@@ -17,7 +17,13 @@ CalculatorProcessor::~CalculatorProcessor() {
 }
 
 // Returns the singleton instance of the calculator processor.
-CalculatorProcessor* CalculatorProcessor::GetInstance() {
+CalculatorProcessor* CalculatorProcessor::Instance() {
 	if (instance == nullptr) instance = new CalculatorProcessor();
 	return instance;
+}
+
+// Process the given equation and return the result.
+int CalculatorProcessor::Process(std::string equation) {
+	//
+	return 0;
 }
