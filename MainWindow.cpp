@@ -150,8 +150,36 @@ void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
 	switch (buttonLabel[0]) {
 		case '=': {
 			// Calculate and display the result of the equation
-			int result = CalculatorProcessor::Instance()->Process(equation);
-			resultCtrl->SetLabel(std::to_string(result));
+			result = std::to_string(CalculatorProcessor::Instance()->Process(equation));
+			resultCtrl->SetLabel(result);
+			break;
+		}
+		case '+': {
+			// Add symbol
+			if (buttonLabel.size() == 1)
+				Append(buttonLabel);
+			
+			// Negative toggle
+			else {
+				//
+			}
+			
+			break;
+		}
+		case 'C': {
+			// Clears the equation and resets the result
+			break;
+		}
+		case 'B': {
+			// Convert the equation into binary
+			break;
+		}
+		case 'H': {
+			// Convert the equation into hexadecimal
+			break;
+		}
+		case 'D': {
+			// Convert the equation into decimal
 			break;
 		}
 		default: {
