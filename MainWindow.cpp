@@ -168,6 +168,10 @@ void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
 		}
 		case 'C': {
 			// Clears the equation and resets the result
+			equation = "";
+			result = "";
+			equationCtrl->SetLabel(equation);
+			resultCtrl->SetLabel(result);
 			break;
 		}
 		case 'B': {
