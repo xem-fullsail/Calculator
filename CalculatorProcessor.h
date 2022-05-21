@@ -34,4 +34,7 @@ public:
 	// Process the given equation and return the result.
 	static int Process(std::string equation);
 
+	// Converts the given decimal number to binary.
+	static std::string ConvertDecimalToBinary(std::string equation);
+
 };

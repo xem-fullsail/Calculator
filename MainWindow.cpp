@@ -176,6 +176,9 @@ void MainWindow::OnButtonClicked(wxCommandEvent& eventName) {
 		}
 		case 'B': {
 			// Convert the equation into binary
+			result = std::to_string(CalculatorProcessor::Instance()->Process(equation));
+			result = CalculatorProcessor::Instance()->ConvertDecimalToBinary(result);
+			resultCtrl->SetLabel(result);
 			break;
 		}
 		case 'H': {

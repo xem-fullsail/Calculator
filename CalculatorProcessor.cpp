@@ -92,3 +92,29 @@ int CalculatorProcessor::Process(std::string equation) {
 
 	return result;
 }
+
+// Converts the given decimal number to binary.
+std::string CalculatorProcessor::ConvertDecimalToBinary(std::string equation) {	
+	int number = std::stoi(equation);	// Convert the given equation to int
+	char bits[32];						// Buffer to store bits
+	bits[31] = '\0';					// Null terminator
+	int index = 30;						// Array index (will be the pos/neg sign in the array)
+	bool neg = number < 0;				// True if the given number is negative
+
+	// Fill in the bits in reverse order
+	while (index >= 0 && number >= 0) {
+		bits[index] = number % 2;
+		number = number / 2;
+		index--;
+	}
+
+	// Set the pos/neg sign
+	std::string result;
+	result = neg ? "1" : "0";
+
+	// Trim the excess 0s
+	for (int i = index + 1; i < 31; i++)
+		result += bits[i];
+	
+	return result;
+}
